@@ -1,0 +1,16 @@
+{post:
+	content: "blah blah blah"
+	id: "1234"
+	user_nickname: "ronanlewsley99"
+	tag: "Web Development"
+	user_id: "auth0|6gj5d57dg3f79hgd"
+}
+
+{comment:
+	content: "blah blah"
+	id = "1234"
+	user_nickname: "ronanlewsley99"
+	post_id: "1234"
+}
+	
+	
