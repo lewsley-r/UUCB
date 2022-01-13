@@ -30,6 +30,14 @@
 
           <b-button
             class="profileBtns btnBar"
+            v-b-modal.modal-4
+            id="uploadPicBtn"
+          >
+            Upload a picture
+          </b-button>
+
+          <b-button
+            class="profileBtns btnBar"
             v-b-modal.modal-2
             id="uploadVidBtn"
           >
@@ -127,6 +135,25 @@
           </div>
         </b-modal>
 
+         <!-- Upload a Photo -->
+        <b-modal id="modal-4" title="Upload a photo">
+          <div id="uploadArea">
+            <b-form-file
+              id="fileDrop"
+              accept="image/*"
+              v-model="file3"
+              :state="Boolean(file3)"
+            ></b-form-file>
+            <b-button
+              id="submitBtn"
+              class="profileBtns"
+              v-on:click="submitFile()"
+            >
+              Submit</b-button
+            >
+          </div>
+        </b-modal>
+
         <!-- View Followers -->
         <b-spinner v-if="loading"></b-spinner>
         <b-modal id="modal-3" title="View followers">
@@ -177,6 +204,7 @@ export default {
       loading: false,
       file1: null,
       file2: null,
+      file3: null,
       dismissSecs: 10,
       dismissCountDown: 0,
       alertContent: null,
@@ -225,19 +253,33 @@ export default {
         );
       } else if (this.file2 != null) {
         // or this if its a photo, allows for use of one endpoint and function on backend side.
-        let formData = new FormData();
-        formData.append("file", this.file2);
-        formData.append("filetype", "profilePhoto");
-        formData.append("userId", this.user.id);
-        axios
-          .post("/api/uploadFile", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-          .then(this.showAlert.bind(this))
-          .catch(this.showFailure.bind(this));
+          let formData = new FormData();
+          formData.append("file", this.file2);
+          formData.append("filetype", "profilePhoto");
+          formData.append("userId", this.user.id);
+          axios
+            .post("/api/uploadFile", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(this.showAlert.bind(this))
+            .catch(this.showFailure.bind(this));
+      } else if (this.file3 != null){
+          let formData = new FormData();
+          formData.append("file", this.file3);
+          formData.append("filetype", "photo");
+          formData.append("userId", this.user.id);
+          axios
+            .post("/api/uploadFile", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            })
+            .then(this.showAlert.bind(this))
+            .catch(this.showFailure.bind(this));
       }
+
     },
     onChangeFile() {
       const file = this.$refs.fileContainer.files;
@@ -307,10 +349,23 @@ export default {
         this.$store.commit("followSelected");
       }
     },
-    getPhotos() {},
-    getVideos() {
-      this.$router.push("ViewVideos");
+    getPhotos() {
+      this.$store.dispatch("getPhotos");
+      setTimeout(() => {
+        this.$router.push("ViewPhotos")
+        
+      }, 2000);
+      
     },
+    getVideos() {
+      this.$store.dispatch("getVideos");
+      setTimeout(() => {
+      this.$router.push("ViewVideos");
+    }, 2000);
+      
+    }
+ 
+      
   },
 
   computed: {

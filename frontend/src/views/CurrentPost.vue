@@ -17,6 +17,12 @@
                 Submit Comment
             </b-button>
         </b-card>
+        <div id="comments" v-if="Post.comments" >
+            <h3> Comments </h3>
+            <b-card id="commentCard" v-for="comment in Post.comments" :key="comment.id" :title="comment.user_name" :sub-title="comment.created_at">
+                {{ comment.content }}
+            </b-card>
+        </div>
     </div>
 </template>
 
@@ -50,6 +56,7 @@ export default {
                 this.$store.state.currentPost.created_at.slice(0, 10)
             return temp
         }
+        
     },
 
     methods: {
@@ -75,7 +82,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .profileBtns {
         background-color: #829399;
     }
@@ -94,4 +101,26 @@ export default {
         border: 1em;
         border: 2px #545F66 solid;
     }
+    
+    #commentCard{
+        background-color: #D0F4EA;
+        width: 50vw;
+        margin-top: 2vh;
+        margin-left: auto;
+        margin-right: auto;
+        border: 1em;
+        border: 2px #545F66 solid;
+    }
+
+    #comments{
+        margin-right: auto;
+        margin-left: auto ;
+        margin-top: 5vh;
+        height: 25vh;
+        overflow-y: auto;
+        scrollbar-color: red;
+        scrollbar-track-color: black;
+        width: 51vw
+    }
+    
 </style>

@@ -109,6 +109,24 @@ class ProfileController extends Controller
         return $url;
     }
 
+    public function getPhotos(Request $req)
+    {
+        Log::info($req);
+        $dir = 'user_id_'.$req->input('userId').'/photos';
+        $disk = Storage::disk('azure');
+        $files = $disk->allFiles($dir);
+        return $files;
+    }
+
+    public function getVideos(Request $req)
+    {
+        Log::info($req);
+        $dir = 'user_id_'.$req->input('userId').'/videos';
+        $disk = Storage::disk('azure');
+        $files = $disk->allFiles($dir);
+        return $files;
+    }
+
     public function followUser(Request $req)
     {
         $followUser = User::find($req->input('profileId'));

@@ -1,19 +1,16 @@
 <template>
-  <div v-if="videos">
+  <div v-if="rawPhotos">
     <b-pagination
       id="pageNum"
       v-model="currentPage"
-      :total-rows="vidLength"
+      :total-rows="photosLength"
       :per-page="perPage"
       aria-controls="my-table"
     ></b-pagination>
-    <b-embed
-      id="videoPlayer"
-      controls
-      type="video"
-      :src="video"
-      allowfullscreen
-    ></b-embed>
+    <b-img
+      id="photoPlayer"
+      :src="photo"
+    ></b-img>
   </div>
 </template>
 
@@ -28,15 +25,16 @@ export default {
     };
   },
   computed: {
-    videos() {
-      return this.$store.state.currentUser.videos;
+    rawPhotos() {
+      return this.$store.state.currentUser.photos;
     },
-    video() {
-      var url = this.rootAzureBlob + this.videos[this.currentPage - 1]
-      return url
+    photo() {
+      var url = this.rootAzureBlob + this.rawPhotos[this.currentPage - 1]
+      console.log(url)
+      return url;
     },
-    vidLength() {
-      return this.videos.length;
+    photosLength() {
+      return this.rawPhotos.length;
     },
     user() {
       return this.$store.state.currentUser;
@@ -49,7 +47,7 @@ export default {
 </script>
 
 <style scoped>
-#videoPlayer {
+#photoPlayer {
   width: 60vw;
   height: 50vh;
   margin-top: 5vh;

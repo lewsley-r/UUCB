@@ -36,6 +36,11 @@ Route::get('/getComments', [PostController::class, 'getComments']);
 Route::get('/getProfilePicture', [ProfileController::class, 'getProfilePicture']);
 Route::get('/getFollowers', [ProfileController::class, 'getFollowers']);
 Route::get('/getFollowings', [ProfileController::class, 'getFollowings']);
+Route::get('/getPhotos', [ProfileController::class, 'getPhotos']);
+Route::get('/getVideos', [ProfileController::class, 'getVideos']);
+
+
+
 
 
 
