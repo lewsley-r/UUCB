@@ -13,7 +13,7 @@ server {
         proxy_pass http://frontend:8080/;
     }
 
-    location ~ /(|api/.*|apic/.*|oauth/.*|login|register|logout|sanctum/.*|home|user)?$ {
+    location ~ /(|api/.*|apic/.*|oauth/.*|login|register|logout|password/.*|sanctum/.*|home|user)?$ {
         try_files $uri $uri/ /index.php?$query_string;
 
         if (!-d $request_filename) {
