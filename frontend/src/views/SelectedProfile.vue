@@ -27,24 +27,17 @@
             >
             <b-button
               class="profileBtns"
-              @click="viewPhotos"
+              @click="getPhotos"
               id="followBtn"
               v-if="isFollowed"
               >View Photos</b-button
             >
             <b-button
               class="profileBtns"
-              @click="viewVideos"
+              @click="getVideos"
               id="followBtn"
               v-if="isFollowed"
               >View Videos</b-button
-            >
-            <b-button
-              class="profileBtns"
-              @click="viewPosts"
-              id="followBtn"
-              v-if="isFollowed"
-              >View Posts</b-button
             >
           </b-button-group>
         </b-card-text>
@@ -76,6 +69,19 @@ export default {
         currentUserId: this.currentUser.id,
       });
       this.$store.commit("unfollowSelected");
+    },
+    getPhotos() {
+      this.$store.dispatch("getSelectedPhotos");
+      setTimeout(() => {
+        this.$router.push("ViewPhotos");
+      }, 2000);
+    },
+
+    getVideos() {
+      this.$store.dispatch("getSelectedVideos");
+      setTimeout(() => {
+        this.$router.push("ViewVideos");
+      }, 2000);
     },
   },
   computed: {

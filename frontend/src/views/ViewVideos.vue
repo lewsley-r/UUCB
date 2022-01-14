@@ -15,6 +15,25 @@
       allowfullscreen
     ></b-embed>
   </div>
+  <div v-else-if="selectedVideos">
+    <b-pagination
+      id="pageNum"
+      v-model="currentPage"
+      :total-rows="vidLength"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+    <b-embed
+      id="videoPlayer"
+      controls
+      type="video"
+      :src="video"
+      allowfullscreen
+    ></b-embed>
+  </div>
+  <div v-else>
+    <h1> No Videos to Display </h1>
+  </div>
 </template>
 
 <script>
@@ -33,6 +52,13 @@ export default {
     },
     video() {
       var url = this.rootAzureBlob + this.videos[this.currentPage - 1]
+      return url
+    },
+    selectedVideos() {
+      return this.$store.state.selectedUser.videos
+    },
+    selectedVideo() {
+      var url = this.rootAzureBlob + this.selectedVideos[this.currentpage - 1]
       return url
     },
     vidLength() {

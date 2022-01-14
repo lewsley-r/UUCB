@@ -100,9 +100,28 @@ const store = new Vuex.Store({
                 })
         },
 
+        getSelectedPhotos({ commit, state }) {
+            axios.get('api/getPhotos', { params: { userId: state.selectedUser.id } }).then((response => {
+                    commit('setSelectedUserPhotosUrls', response.data)
+                }))
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+
+
         getVideos({ commit, state }) {
             axios.get('api/getVideos', { params: { userId: state.currentUser.id } }).then((response => {
                     commit('setUserVideosUrls', response.data)
+                }))
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
+
+        getSelectedVideos({ commit, state }) {
+            axios.get('api/getVideos', { params: { userId: state.selectedUser.id } }).then((response => {
+                    commit('setSelectedUserVideosUrls', response.data)
                 }))
                 .catch((error) => {
                     console.log(error)
@@ -262,6 +281,14 @@ const store = new Vuex.Store({
 
         setUserPhotosUrls(state, photos) {
             state.currentUser.photos = photos
+        },
+
+        setSelectedUserVideosUrls(state, videos) {
+            state.selectedUser.videos = videos
+        },
+
+        setUserSelectedPhotosUrls(state, photos) {
+            state.selectedUser.photos = photos
         },
 
         followSelected(state) {

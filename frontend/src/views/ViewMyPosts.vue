@@ -98,6 +98,7 @@ export default {
         }
         console.log(selected)
         this.$store.commit('setCurrentPost', selected)
+        this.$store.dispatch('getComments', id)
         this.loading = true;
         setTimeout(() => {   this.$router.push('viewPost'); }, 2000);
         this.loading = null;

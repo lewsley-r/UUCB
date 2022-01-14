@@ -12,6 +12,22 @@
       :src="photo"
     ></b-img>
   </div>
+  <div v-else-if="selectedPhotos">
+    <b-pagination
+      id="pageNum"
+      v-model="currentPage"
+      :total-rows="vidLength"
+      :per-page="perPage"
+      aria-controls="my-table"
+    ></b-pagination>
+    <b-img
+      id="photoPlayer"
+      :src="selectedPhoto"
+    ></b-img>
+  </div>
+  <div v-else>
+    <h1> No Photos to Display </h1>
+  </div>
 </template>
 
 <script>
@@ -30,6 +46,14 @@ export default {
     },
     photo() {
       var url = this.rootAzureBlob + this.rawPhotos[this.currentPage - 1]
+      console.log(url)
+      return url;
+    },
+    selectedPhotos() {
+      return this.$store.state.selectedUser.photos;
+    },
+    selectedPhoto() {
+      var url = this.rootAzureBlob + this.selectedPhotos[this.currentPage - 1]
       console.log(url)
       return url;
     },
