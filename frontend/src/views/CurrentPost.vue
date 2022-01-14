@@ -19,7 +19,7 @@
         </b-card>
         <div id="comments" v-if="Post.comments" >
             <h3> Comments </h3>
-            <b-card id="commentCard" v-for="comment in Post.comments" :key="comment.id" :title="comment.user_name" :sub-title="comment.created_at">
+            <b-card id="commentCard" v-for="comment in comments" :key="comment.id" :title="comment.user_name" :sub-title="comment.created_at">
                 {{ comment.content }}
             </b-card>
         </div>
@@ -55,6 +55,9 @@ export default {
                 ", " +
                 this.$store.state.currentPost.created_at.slice(0, 10)
             return temp
+        },
+        comments(){
+            return this.$store.state.currentPost.comments
         }
         
     },
@@ -79,7 +82,6 @@ export default {
     },
 
     mounted(){
-        this.$store.dispatch('getComments', this.Post.id)
     }
 
 }
