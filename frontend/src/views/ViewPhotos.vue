@@ -58,7 +58,12 @@ export default {
       return url;
     },
     photosLength() {
-      return this.rawPhotos.length;
+      if (this.rawPhotos){
+        return this.rawPhotos.length;
+      }else if (this.selectedPhotos){
+        return this.selectedPhotos.length
+      }
+      
     },
     user() {
       return this.$store.state.currentUser;

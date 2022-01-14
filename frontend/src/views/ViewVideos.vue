@@ -62,7 +62,11 @@ export default {
       return url
     },
     vidLength() {
-      return this.videos.length;
+      if (this.videos){
+        return this.videos.length;
+      }else if (this.selectedVideos){
+        return this.selectedVideos.length;
+      }
     },
     user() {
       return this.$store.state.currentUser;
