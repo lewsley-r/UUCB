@@ -19,7 +19,7 @@
     <b-pagination
       id="pageNum"
       v-model="currentPage"
-      :total-rows="vidLength"
+      :total-rows="selectedVidLength"
       :per-page="perPage"
       aria-controls="my-table"
     ></b-pagination>
@@ -62,11 +62,10 @@ export default {
       return url
     },
     vidLength() {
-      if (this.videos){
-        return this.videos.length;
-      }else if (this.selectedVideos){
-        return this.selectedVideos.length;
-      }
+      return this.videos.length;
+    },
+    selectedVidLength() {
+      return this.videos.length;
     },
     user() {
       return this.$store.state.currentUser;

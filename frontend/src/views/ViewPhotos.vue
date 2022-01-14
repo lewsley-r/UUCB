@@ -16,7 +16,7 @@
     <b-pagination
       id="pageNum"
       v-model="currentPage"
-      :total-rows="vidLength"
+      :total-rows="selectedPhotosLength"
       :per-page="perPage"
       aria-controls="my-table"
     ></b-pagination>
@@ -58,12 +58,10 @@ export default {
       return url;
     },
     photosLength() {
-      if (this.rawPhotos){
-        return this.rawPhotos.length;
-      }else if (this.selectedPhotos){
-        return this.selectedPhotos.length
-      }
-      
+      return this.rawPhotos.length;
+    },
+    selectedPhotosLength() {
+      return this.selectedPhotos.length;
     },
     user() {
       return this.$store.state.currentUser;
