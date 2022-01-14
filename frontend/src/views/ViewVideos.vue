@@ -27,7 +27,7 @@
       id="videoPlayer"
       controls
       type="video"
-      :src="video"
+      :src="selectedVideo"
       allowfullscreen
     ></b-embed>
   </div>
