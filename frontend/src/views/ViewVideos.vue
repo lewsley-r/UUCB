@@ -65,7 +65,7 @@ export default {
       return this.videos.length;
     },
     selectedVidLength() {
-      return this.videos.length;
+      return this.selectedVideos.length;
     },
     user() {
       return this.$store.state.currentUser;
