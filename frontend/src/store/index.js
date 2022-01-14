@@ -287,7 +287,7 @@ const store = new Vuex.Store({
             state.selectedUser.videos = videos
         },
 
-        setUserSelectedPhotosUrls(state, photos) {
+        setSelectedUserPhotosUrls(state, photos) {
             state.selectedUser.photos = photos
         },
 
