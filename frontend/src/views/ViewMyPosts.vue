@@ -100,7 +100,7 @@ export default {
         this.$store.commit('setCurrentPost', selected)
         this.$store.dispatch('getComments', id)
         this.loading = true;
-        setTimeout(() => {   this.$router.push('viewPost'); }, 2000);
+        setTimeout(() => {   this.$router.push('viewPost'); }, 3000);
         this.loading = null;
     },
   },
