@@ -57,6 +57,7 @@ export default {
             return temp
         },
         comments(){
+            console.log(this.$store.state.currentPost.comments)
             return this.$store.state.currentPost.comments
         }
         

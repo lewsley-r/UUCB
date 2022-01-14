@@ -88,7 +88,6 @@ export default {
         var post = event.target.innerText
         var index = post.search("Post ID") + 9
         var id = post.slice(index)
-        console.log(id)
         var selected;
         for (post in this.$store.state.posts){
             if (this.$store.state.posts[post].id == id){
@@ -96,6 +95,8 @@ export default {
             }
         }
         this.$store.commit('setCurrentPost', selected)
+        this.$store.dispatch('getComments', id)
+
         this.loading = true;
         setTimeout(() => {   this.$router.push('viewPost'); }, 2000);
         this.loading = null;
