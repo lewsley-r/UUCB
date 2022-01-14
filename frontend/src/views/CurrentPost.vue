@@ -72,6 +72,9 @@ export default {
             postId: this.Post.id
             };
             this.$store.dispatch("submitComment", commentRecord);
+            setTimeout(() => {
+                window.location.reload()
+            }, 2000);
         }
     },
 

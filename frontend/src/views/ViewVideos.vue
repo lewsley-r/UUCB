@@ -59,6 +59,7 @@ export default {
     },
     selectedVideo() {
       var url = this.rootAzureBlob + this.selectedVideos[this.currentpage - 1]
+      console.log(url)
       return url
     },
     vidLength() {
