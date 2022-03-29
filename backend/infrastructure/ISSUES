@@ -1,3 +1,0 @@
-* bring setup_local.sh into bookcloth script
-* update_cluster_to_ci_build_ref.sh replaced with bookcloth
-* prerequisites

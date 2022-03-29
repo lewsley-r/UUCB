@@ -1,4 +1,0 @@
-FROM flaxandteal/docker-laravel-phpfpm:7.3.3-alpine
-
-ENTRYPOINT sh
-CMD ["repeat.sh"]
