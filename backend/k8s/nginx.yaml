@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    server {
+      listen 80;
+      client_max_body_size 650M;
+      server_tokens off;
+
+      root /var/www/app/public;
+      index index.php index.html index.htm;
+
+      location / {
+          try_files $uri $uri/ /index.php?$query_string;
+
+          if (!-d $request_filename) {
+              rewrite ^(.+)/$ /$1;
+          }
+
+          if (!-e $request_filename) {
+              rewrite ^(.*)$ /index.php?$1 last;
+              break;
+          }
+      }
+
+      location ~ \.php$ {
+          include fastcgi_params;
+          fastcgi_pass laravel-phpfpm-service:9000;
+          fastcgi_split_path_info ^(.+\.php)(/.+)$;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          fastcgi_intercept_errors off;
+          fastcgi_buffer_size 16k;
+          fastcgi_buffers 4 16k;
+      }
+
+      location ~ /\.ht {
+          deny all;
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: rlewsley99/laravel-nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - mountPath: /etc/nginx/conf.d # mount nginx-conf volumn to /etc/nginx
+              readOnly: true
+              name: nginx-config
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config # place ConfigMap `nginx-conf` on /etc/nginx
+          items:
+            - key: nginx.conf
+              path: nginx.conf
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: nginx
+

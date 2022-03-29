@@ -13,6 +13,7 @@ use Pion\Laravel\ChunkUpload\Handler\AbstractHandler;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use Log;
+use Illuminate\Support\Facades\Http;
 
 class ProfileController extends Controller
 {
@@ -162,6 +163,14 @@ class ProfileController extends Controller
         $user = User::find($req->input('profileId'));
         $followings = $user->followings;
         return $followings;
+    }
+
+    public function getNlpData(Request $req)
+    {
+        $response = Http::post('https://europe-west2-active-defender-344601.cloudfunctions.net/nlp-func', [
+            'message' => $req->message
+        ]);
+        return $response;
     }
 
   

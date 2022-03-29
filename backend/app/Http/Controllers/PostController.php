@@ -14,10 +14,10 @@ class PostController extends Controller
     public function postUpload(Request $req)
     { //Create
         Post::create([
-            'user_id' => $req->userID,
+            'user_id' => $req->user_id,
             'content' => $req->content,
             'tag' => $req->tag,
-            'user_name' => $req->userName
+            'user_name' => $req->user_name
         ]);
         return response('Posted Successfully');
     }
@@ -55,6 +55,18 @@ class PostController extends Controller
     {
         $postId = $req->input('postId');
         $comments = Post::find($postId)->comments;
-        return $comments;
+        $formatComments = array();
+        foreach ($comments as $comment) {
+            $formatComment = [
+                'id' => $comment->id,
+                'content' => $comment->content,
+                'user_name' => $comment->user_name,
+                'post_id' => $comment->post_id,
+                'created_at' => substr($comment->created_at, 11, 5) . ', ' . substr($comment->created_at, 0, 10),
+                'updated_at' => $comment->updated_at
+            ];
+            array_push($formatComments, $formatComment);
+        }
+        return $formatComments;
     }
 }

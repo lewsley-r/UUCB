@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
-import router from '@/router'
+
 
 Vue.use(Vuex)
 
@@ -22,7 +22,8 @@ const store = new Vuex.Store({
         currentUserPosts: [],
         selectedUserPosts: [],
         followedPosts: [],
-        filterUsers: []
+        filterUsers: [],
+        nlpTopics: []
     },
     actions: {
         logout(state) {
@@ -93,8 +94,8 @@ const store = new Vuex.Store({
 
         getPhotos({ commit, state }) {
             axios.get('api/getPhotos', { params: { userId: state.currentUser.id } }).then((response => {
-                    commit('setUserPhotosUrls', response.data)
-                }))
+                commit('setUserPhotosUrls', response.data)
+            }))
                 .catch((error) => {
                     console.log(error)
                 })
@@ -102,8 +103,8 @@ const store = new Vuex.Store({
 
         getSelectedPhotos({ commit, state }) {
             axios.get('api/getPhotos', { params: { userId: state.selectedUser.id } }).then((response => {
-                    commit('setSelectedUserPhotosUrls', response.data)
-                }))
+                commit('setSelectedUserPhotosUrls', response.data)
+            }))
                 .catch((error) => {
                     console.log(error)
                 })
@@ -112,8 +113,8 @@ const store = new Vuex.Store({
 
         getVideos({ commit, state }) {
             axios.get('api/getVideos', { params: { userId: state.currentUser.id } }).then((response => {
-                    commit('setUserVideosUrls', response.data)
-                }))
+                commit('setUserVideosUrls', response.data)
+            }))
                 .catch((error) => {
                     console.log(error)
                 })
@@ -121,8 +122,8 @@ const store = new Vuex.Store({
 
         getSelectedVideos({ commit, state }) {
             axios.get('api/getVideos', { params: { userId: state.selectedUser.id } }).then((response => {
-                    commit('setSelectedUserVideosUrls', response.data)
-                }))
+                commit('setSelectedUserVideosUrls', response.data)
+            }))
                 .catch((error) => {
                     console.log(error)
                 })
@@ -164,20 +165,49 @@ const store = new Vuex.Store({
                 })
         },
 
+        nlpAnalysis({ commit }, post) {
+            // const headers = {"Access-Control-Allow-Origin": "*",
+            //                 "Content-Type": "application/json",
+            //                 "Accept": "*"}
+            axios.post("/api/nlpAnalyse", {"message": post}
+            )
+                .then((response => {
+                    var record;
+                    var temp = response['data'][0]['category'].split('/').concat(response['data'][1]['category'].split('/'))
+                    for (record in temp){
+                        if (temp[record] == ""){
+                            temp.splice(record, 1)
+                        }
+                    }
+                    for (record in temp){
+                        temp[record] = {'text': temp[record], 'value': temp[record]} 
+                    }
+                    for (record in response['data']) {
+                        if (response['data'][record]['name']) {
+                            temp.push({'text': response['data'][record]['name'], 'value': response['data'][record]['name']})
+                        }
+                    }
+                    console.log(temp)
+                    var finalArray = temp.map((x) => x);
+                    console.log(finalArray)
+                    commit('setTopics', temp)
+                }))
+        },
+
         submitPost(state, payload) {
             axios.post("/api/uploadPost", payload)
                 .then((response => {
                     alert("Posted Successfully!", response)
+                    window.location.replace('/myPosts')
                 }))
                 .catch(error =>
                     console.log(error));
         },
 
-        submitComment(state, payload) {
+        submitComment({ commit }, payload) {
+            console.log(payload)
+            commit('addComment', payload)
             axios.post("/api/postComment", payload)
-                .then((response => {
-                    alert("Commented Successfully!", response)
-                }))
                 .catch(error =>
                     console.log(error));
         },
@@ -186,7 +216,7 @@ const store = new Vuex.Store({
             axios.post("/api/deletePost", { id: id })
                 .then((response => {
                     alert("Delete Successfully!", response)
-                    router.push('myPosts')
+                    window.location.replace('/myPosts')
                 }))
                 .catch(error =>
                     console.log(error));
@@ -199,10 +229,10 @@ const store = new Vuex.Store({
             formData.append("userId", payload.currentUserId);
             // console.log(formData)
             axios.post("/api/follow", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
                 .catch((error) => {
                     console.log(error)
                 })
@@ -213,10 +243,10 @@ const store = new Vuex.Store({
             formData.append("profileId", payload.id);
             formData.append("userId", payload.currentUserId);
             axios.post("/api/unfollow", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
                 .catch((error) => {
                     console.log(error)
                 })
@@ -225,6 +255,20 @@ const store = new Vuex.Store({
 
 
     mutations: {
+        addComment(state, comment) {
+            console.log(state.currentPost)
+            if (state.currentPost.comments) {
+                state.currentPost.comments.push(comment)
+            }
+            else {
+                state.currentPost.comments = [comment]
+            }
+        },
+
+        setTopics(state, topics){
+            state.nlpTopics = topics
+        },
+
         setUsers(state, users) {
             state.users = users
         },

@@ -5,8 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
-
-
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +26,7 @@ Route::post('/unfollow', [ProfileController::class, 'unfollowUser']);
 Route::post('/uploadPost', [PostController::class, 'postUpload']);
 Route::post('/postComment', [PostController::class, 'postComment']);
 Route::post('/deletePost', [PostController::class, 'deletePost']);
+Route::post('/nlpAnalyse', [ProfileController::class, 'getNlpData']);
 
 
 //Get Routes

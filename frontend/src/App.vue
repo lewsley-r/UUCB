@@ -101,16 +101,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #545f66;
-  background-color: #e8fcc2;
-  height: 100vh;
+  background-color: #43bae9;
+  min-height: 100vh;
+  height: fit-content;
 }
 
 #nav {
   display: flex;
   justify-content: center;
   padding: 30px;
-  border-bottom: #829399 solid 2px;
-  background-color: #d0f4ea;
+  border-bottom: #1e8cb4 solid 2px;
+  background-color: #0003076c;
 }
 
 #nav a {
@@ -118,13 +119,13 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #545f66;
+  color: white;
 }
 
 #buttons {
   border: none;
   background-color: inherit;
-  color: #829399;
+  color: #43bae9;
   font-size: large;
   font-weight: 500;
   outline: none;
@@ -133,16 +134,14 @@ export default {
 #searchField {
   margin-left: 2vw;
   width: 20vw;
-  border: #829399 solid 2px;
-  background-color: #e8fcc2;
+  background-color: white;
 }
 
 #searchBtn {
-  background-color: #e8fcc2;
+  background-color: #43bae9;
   width: 4vw;
-  border: #829399 solid 2px;
   margin-right: 1vw;
-  color: #829399;
+  color: white;
 }
 
 select:focus {
