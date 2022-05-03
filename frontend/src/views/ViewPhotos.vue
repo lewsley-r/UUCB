@@ -46,7 +46,6 @@ export default {
     },
     photo() {
       var url = this.rootAzureBlob + this.rawPhotos[this.currentPage - 1]
-      console.log(url)
       return url;
     },
     selectedPhotos() {
@@ -54,7 +53,6 @@ export default {
     },
     selectedPhoto() {
       var url = this.rootAzureBlob + this.selectedPhotos[this.currentPage - 1]
-      console.log(url)
       return url;
     },
     photosLength() {

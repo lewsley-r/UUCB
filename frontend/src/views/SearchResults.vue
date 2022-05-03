@@ -58,7 +58,7 @@ export default {
               this.$store.dispatch('getSelectedProfilePicture')
           }
       }
-      setTimeout(() => {   this.$router.push('/selectedProfile'); }, 1000)
+      setTimeout(() => {this.$router.push('/selectedProfile'); }, 1000)
       var follower;
       var isFollowing;
       for (follower in this.currentUser.followings){

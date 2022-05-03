@@ -133,5 +133,6 @@ export default {
   padding: 2vw;
   width: fit-content;
   margin-top: 10vh;
+  align-items: center;
 }
 </style>

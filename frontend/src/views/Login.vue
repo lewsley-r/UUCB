@@ -60,10 +60,10 @@ export default {
     onLogout() {
       this.logout()
         .then(response => {
-            console.log(response, "--- Logged out Successfully ---")
+            alert(response, "--- Logged out Successfully ---")
         })
         .catch(error => {
-            console.log(error)
+            alert(error)
         });
     },
   },

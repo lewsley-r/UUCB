@@ -91,7 +91,6 @@ export default {
 
   methods: {
     deletePost() {
-      console.log(this.Post.id);
       this.$store.dispatch("deletePost", this.Post.id);
     },
     submitComment() {

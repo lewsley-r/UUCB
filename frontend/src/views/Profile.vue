@@ -291,7 +291,6 @@ export default {
           // onError
           (err) => {
             alert("An error has occurred!");
-            console.log(err);
           },
           // onSuccess
           (res) => {
@@ -339,7 +338,6 @@ export default {
       }
     },
     submitPost() {
-      console.log(this.selectedTags.toString())
       var postRecord = {
         user_id: this.user.id,
         user_name: this.user.name,

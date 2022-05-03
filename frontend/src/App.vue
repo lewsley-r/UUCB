@@ -15,7 +15,7 @@
             <b-icon icon="person-circle"> </b-icon>
             {{ user.name }}
           </b-button>
-          <b-button id="buttons" to="/Feed" v-if="user">
+          <b-button id="buttons" @click="clearStateAndGoToFeed()" v-if="user">
             <b-icon icon="rss"> </b-icon>
             Feed
           </b-button>
@@ -29,11 +29,12 @@
           <b-form-input
             id="searchField"
             v-model="searchContent"
-            placeholder="Search users ..."
+            placeholder="Enter User or Topic search..."
           ></b-form-input>
-          <b-button id="searchBtn" @click="searchUsers">
-            <b-icon icon="search" scale="1"></b-icon>
-          </b-button>
+          <b-dropdown id="searchType" text="Search Type">
+            <b-dropdown-item @click="searchUsers">By User</b-dropdown-item>
+            <b-dropdown-item @click="searchTopics">By Topic</b-dropdown-item>
+          </b-dropdown> 
         </b-button-group>
       </div>
     </div>
@@ -48,16 +49,41 @@ export default {
     };
   },
   methods: {
+    clearStateAndGoToFeed(){
+      this.$store.commit("setFilterPosts", null);
+      this.$router.push("/Feed");
+    },
     searchUsers() {
-      var user;
-      var filterUsers = [];
-      for (user in this.users) {
-        if (this.users[user].name.includes(this.searchContent) == true) {
-          filterUsers.push(this.users[user]);
+      if (this.searchContent != null){
+        var user;
+        var filterUsers = [];
+        for (user in this.users) {
+          if (this.users[user].name.includes(this.searchContent) == true) {
+            filterUsers.push(this.users[user]);
+          }
         }
+        this.$store.commit("setFilterUsers", filterUsers);
+        this.$router.push("/searchResults");
       }
-      this.$store.commit("setFilterUsers", filterUsers);
-      this.$router.push("/searchResults");
+      else{
+        alert("No search entry found")
+      }
+    },
+    searchTopics() {
+      if (this.searchContent != null){
+        var post;
+        var filterPosts = [];
+        for (post in this.posts) {
+          if (this.posts[post].tag.includes(this.searchContent) == true) {
+            filterPosts.push(this.posts[post])
+          }
+        }
+        this.$store.commit("setFilterPosts", filterPosts);
+        this.$router.push("/Feed");
+      }
+      else {
+        alert("No search entry found")
+      }
     },
     logout() {
       this.$store.dispatch("logout");
@@ -73,9 +99,15 @@ export default {
     users() {
       return this.$store.state.users;
     },
+    posts() {
+      return this.$store.state.posts;
+    },
     selectedUser() {
       return this.$store.state.selectedUser;
     },
+    selectedSearch() {
+      print("hit")
+    }
   },
 
   async created() {
@@ -137,11 +169,8 @@ export default {
   background-color: white;
 }
 
-#searchBtn {
+#searchType__BV_toggle_ {
   background-color: #43bae9;
-  width: 4vw;
-  margin-right: 1vw;
-  color: white;
 }
 
 select:focus {
