@@ -290,7 +290,7 @@ export default {
           },
           // onError
           (err) => {
-            alert("An error has occurred!");
+            alert("An error has occurred!", err);
           },
           // onSuccess
           (res) => {
