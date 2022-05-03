@@ -29,6 +29,7 @@ const store = new Vuex.Store({
     actions: {
         logout(state) {
             axios.post('logout').then(response => {
+                alert(response)
                 state.isAuthenticated = false
                 state.currentUser = null
                 localStorage.clear();

@@ -105,9 +105,6 @@ export default {
     selectedUser() {
       return this.$store.state.selectedUser;
     },
-    selectedSearch() {
-      print("hit")
-    }
   },
 
   async created() {
