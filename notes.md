@@ -4,8 +4,7 @@ ssh -i ~/.ssh/id_rsa ronanAzure@20.108.158.86
 
 Srvless Function URL
 
-https://europe-west2-active-defender-344601.cloudfunctions.net/nlp-func
-
+https://europe-west2-uucb-354812.cloudfunctions.net/nlp-func
 
 Testing Post for NLP Classification
 

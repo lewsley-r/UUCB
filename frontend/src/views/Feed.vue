@@ -1,31 +1,6 @@
 <template>
   <div class="overflow-auto">
-    <div v-if="topicPosts!=null">
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        aria-controls="my-table"
-        id="paginationBar"
-      >
-      </b-pagination>
-      <b-list-group
-        horizontal
-        id="posts"
-        v-for="post in topicPosts"
-        :key="post.name"
-        class="flex-column align-items-start"
-      >
-        <b-list-group-item button id="post" @click="setSelectedPost($event)">
-          <p>
-            Tagged: {{ post.Tag }}<br /><br />Posted By: {{ post.User }} <br /><br />
-            <small id="createdAt">Created At: {{ post.Created }}</small><br>
-            <small>Post ID: {{ post.ID }}</small>
-          </p>
-        </b-list-group-item>
-      </b-list-group>
-    </div>
-    <div v-else>
+    <div>
       <b-pagination
         v-model="currentPage"
         :total-rows="rows"
@@ -92,32 +67,6 @@ export default {
         this.currentPage * this.perPage
       );
       return filteredPosts;
-    },
-    topicPosts() {
-      var posts = [];
-      var item
-      for (item in this.$store.state.topicFilterPosts) {
-        var post = {
-            ID: this.$store.state.topicFilterPosts[item].id,
-            Tag: this.$store.state.topicFilterPosts[item].tag,
-            User: this.$store.state.topicFilterPosts[item].user_name,
-            Created:
-                this.$store.state.topicFilterPosts[item].created_at.slice(11, 16) +
-                ", " +
-                this.$store.state.topicFilterPosts[item].created_at.slice(0, 10), //slicing used to format timestamp as desired
-            
-        };
-        posts.push(post);
-      }
-      var filteredPosts = posts.slice(
-        (this.currentPage - 1) * this.perPage,
-        this.currentPage * this.perPage
-      );
-      if (posts.length == 0)
-        return null
-      else {
-        return filteredPosts
-      }
     },
     rows() {
       return this.$store.state.followedPosts.length;

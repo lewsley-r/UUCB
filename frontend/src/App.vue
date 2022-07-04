@@ -79,7 +79,7 @@ export default {
           }
         }
         this.$store.commit("setFilterPosts", filterPosts);
-        this.$router.push("/Feed");
+        this.$router.push("/searchResults");
       }
       else {
         alert("No search entry found")

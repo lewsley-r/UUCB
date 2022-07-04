@@ -188,9 +188,7 @@ const store = new Vuex.Store({
                             temp.push({'text': response['data'][record]['name'], 'value': response['data'][record]['name']})
                         }
                     }
-                    alert(temp)
-                    var finalArray = temp.map((x) => x);
-                    alert(finalArray)
+                    // var finalArray = temp.map((x) => x);
                     commit('setTopics', temp)
                 }))
         },
