@@ -167,7 +167,7 @@ class ProfileController extends Controller
 
     public function getNlpData(Request $req)
     {
-        $response = Http::post('https://europe-west2-active-defender-344601.cloudfunctions.net/nlp-func', [
+        $response = Http::post('https://europe-west2-uucb-354812.cloudfunctions.net/nlp-func', [
             'message' => $req->message
         ]);
         return $response;
