@@ -1,11 +1,12 @@
 <div class="container">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@900&family=Ubuntu:wght@500&display=swap" rel="stylesheet"> 
+    <link href="/css/auth.css" rel="stylesheet">  
     <div class="sub-container" style="font-family: 'Roboto Mono', monospace;">
         <div class="">
-            <div class="card" style="margin-left: 42.5vw; margin-top: 25vh; font-family: 'Ubuntu', sans-serif;">
-                <div class="card-header" style="border-bottom: 5px solid; width: 1.5vw; font-size: xx-large; font-weight: 850">{{ __('Login') }}</div>
+            <div class="card">
+                <div class="card-header">{{ __('Login') }}</div>
+                <img class="logo-img" src="img/logo_transparent.png">
 
                 <div class="card-body" style="padding-top: 3vh">
                     <form method="POST" action="{{ route('login') }}">
@@ -59,7 +60,7 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <a class="btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif

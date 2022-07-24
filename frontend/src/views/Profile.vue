@@ -449,7 +449,7 @@ export default {
 }
 
 .profileBtns.btnBar {
-  border: 1px white solid;
+  border: 1px black solid;
   margin-bottom: 2vh;
   margin-top: -5vh;
 }
@@ -546,7 +546,7 @@ export default {
 
 #profileCard {
   background-color: #0003076c;
-  border: 1px white solid;
+  border: 1px black solid;
   border-radius: 1vh;
   margin-right: auto;
   margin-left: auto;

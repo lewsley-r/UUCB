@@ -1,0 +1,67 @@
+body{
+    background-color: #43bae9;;
+}
+
+.btn{
+    font-weight: 850;
+    background-color: lightblue;
+    border: 2px solid red;
+    margin-top: 2vh;
+
+}
+
+.card{
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid black;
+    width: fit-content;
+    padding: 5vw;
+    border-radius: 1em;
+    height: 40vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20vh;
+    
+}
+
+.card-body{
+    float: right;
+    padding: 5vh;
+}
+
+.card-header{
+    border-bottom: 5px solid; 
+    width: 1.5vw; 
+    font-size: xx-large; 
+    font-weight: 850;
+    margin-left: 3vw
+    
+}
+
+.col-form-label{
+    font-weight: 800;
+}
+
+.reg-form-group{
+    padding-bottom: 3vh;
+}
+
+.returnLogin{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.passMsg{
+    text-align: center;
+   
+    align-items: center;
+    margin: auto;
+}
+
+.logo-img{
+    float: left;
+    height: 50vh;
+    margin-top: -10vh;
+}
+
+
+

@@ -139,7 +139,7 @@ export default {
   display: flex;
   justify-content: center;
   padding: 30px;
-  border-bottom: #1e8cb4 solid 2px;
+  border-bottom: black solid 1px;
   background-color: #0003076c;
 }
 
@@ -164,10 +164,12 @@ export default {
   margin-left: 2vw;
   width: 20vw;
   background-color: white;
+  border: 1px black solid;
 }
 
 #searchType__BV_toggle_ {
   background-color: #43bae9;
+  border: 1px black solid;
 }
 
 select:focus {
