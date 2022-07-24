@@ -101,7 +101,10 @@ export default {
         postId: this.Post.id,
       };
       this.$store.dispatch("submitComment", commentRecord);
-      window.location.reload()
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000);
+      
       
     },
   },

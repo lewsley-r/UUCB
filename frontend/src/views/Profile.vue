@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div id="mainProfileBlock" class="row align-items-center profile-header" v-if="!loading">
+    <div
+      id="mainProfileBlock"
+      class="row align-items-center profile-header"
+      v-if="!loading"
+    >
       <!-- Alert for upload -->
       <b-alert
         id="fileSuccess"
@@ -18,7 +22,6 @@
         ></b-progress>
       </b-alert>
       <div>
-
         <!-- Profile Buttons -->
         <b-button-group id="btnGroup">
           <b-button
@@ -104,7 +107,7 @@
               id="submitPostBtn"
               class="profileBtns"
               v-on:click="submitPost()"
-              >Submit Post with selected topics 
+              >Submit Post with selected topics
             </b-button>
           </div>
         </b-modal>
@@ -222,7 +225,6 @@
     <div v-else>
       <b-spinner id="loadSpin" variant="primary"></b-spinner>
     </div>
-
   </div>
 </template>
 
@@ -264,13 +266,13 @@ export default {
 
   methods: {
     analysePost() {
-      this.loading = !this.loading
+      this.loading = !this.loading;
       setTimeout(() => {
-        this.$store.dispatch('nlpAnalysis', this.postContent)
-        this.loading = !this.loading
+        this.$store.dispatch("nlpAnalysis", this.postContent);
+        this.loading = !this.loading;
       }, 2000);
       setTimeout(() => {
-        this.$bvModal.show("modal-6")
+        this.$bvModal.show("modal-6");
       }, 2500);
     },
 
@@ -342,7 +344,7 @@ export default {
         user_id: this.user.id,
         user_name: this.user.name,
         content: this.postContent,
-        tag: this.selectedTags.toString()
+        tag: this.selectedTags.toString(),
       };
       this.$store.dispatch("submitPost", postRecord);
     },
@@ -427,8 +429,8 @@ export default {
       return 0;
     },
     options() {
-      return this.$store.state.nlpTopics
-    }
+      return this.$store.state.nlpTopics;
+    },
   },
 
   mounted() {},
@@ -436,13 +438,13 @@ export default {
 </script>
 
 <style>
-.custom-control-label{
+.custom-control-label {
   padding: 1vh;
 }
 
 .custom-file-label {
   display: none;
-} 
+}
 
 .profileBtns {
   background-color: #0003076c;
@@ -482,7 +484,7 @@ export default {
   float: left;
 }
 
-#loadSpin{
+#loadSpin {
   margin-top: 25vh;
 }
 
@@ -564,6 +566,4 @@ export default {
 #model-6___BV_modal_content_ {
   height: fit-content;
 }
-
-
 </style>

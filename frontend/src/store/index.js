@@ -174,7 +174,19 @@ const store = new Vuex.Store({
             )
                 .then((response => {
                     var record;
-                    var temp = response['data'][0]['category'].split('/').concat(response['data'][1]['category'].split('/'))
+                    var temp = [];
+                    var item;
+                
+                    for (record in response['data']){
+                        if (response['data'][record]['category']){
+                            item = response['data'][record]['category'].split('/')
+                            for (record in item){
+                                temp.push(item[record])
+                            }
+                            // 
+                        }}
+                    // temp = response['data'][0]['category'].split('/').concat(response['data'][1]['category'].split('/'))
+                    // console.log(temp)
                     for (record in temp){
                         if (temp[record] == ""){
                             temp.splice(record, 1)
@@ -183,6 +195,7 @@ const store = new Vuex.Store({
                     for (record in temp){
                         temp[record] = {'text': temp[record], 'value': temp[record]} 
                     }
+                    
                     for (record in response['data']) {
                         if (response['data'][record]['name']) {
                             temp.push({'text': response['data'][record]['name'], 'value': response['data'][record]['name']})
@@ -261,6 +274,7 @@ const store = new Vuex.Store({
         },
 
         setTopics(state, topics){
+            state.nlpTopics = null
             state.nlpTopics = topics
         },
 
